@@ -1,5 +1,5 @@
 #include "hardware.h"
-
+#include "exceptii.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -23,6 +23,15 @@ Hardware::Hardware()
 
 Hardware::Hardware(std::string n, std::string p, double pretIntrodus, int tdp)
 {
+    if (pretIntrodus <= 0)
+    {
+        throw PretInvalidException("Eroare: Pretul pentru " + n + " trebuie sa fie pozitiv!");
+    }
+    if (tdp < 0)
+    {
+        throw ParametruInvalidException("Eroare: Consumul TDP nu poate fi negativ!");
+    }
+
     this->nume = n;
     this->producator = p;
     this->pretBaza = pretIntrodus;

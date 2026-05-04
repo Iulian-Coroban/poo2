@@ -1,4 +1,5 @@
 #include "memorieram.h"
+#include "exceptii.h"
 #include <iostream>
 
 //constructori
@@ -13,6 +14,15 @@ MemorieRAM::MemorieRAM() : Hardware()
 MemorieRAM::MemorieRAM(std::string n, std::string p, double pret, int tdp, int cap, int frecv, std::string ddr)
     : Hardware(n, p, pret, tdp)
 {
+    if (cap <= 0)
+    {
+        throw ParametruInvalidException("Eroare: Capacitatea RAM trebuie sa fie mai mare de 0 GB!");
+    }
+    if (frecv <= 0)
+    {
+        throw ParametruInvalidException("Eroare: Frecventa RAM trebuie sa fie pozitiva!");
+    }
+
     this->capacitateGB = cap;
     this->frecventaMHz = frecv;
     this->tipDDR = ddr;

@@ -1,4 +1,5 @@
 #include "placavideo.h"
+#include "exceptii.h"
 #include <iostream>
 
 //constructori
@@ -12,6 +13,11 @@ PlacaVideo::PlacaVideo() : Hardware()
 PlacaVideo::PlacaVideo(std::string n, std::string p, double pret, int tdp, int vram, bool rayTracing)
     : Hardware(n, p, pret, tdp)
 {
+    if (vram <= 0)
+    {
+        throw ParametruInvalidException("Eroare: Memoria VRAM trebuie sa fie pozitiva!");
+    }
+
     this->memorieVRAM = vram;
     this->areRayTracing = rayTracing;
 }
@@ -34,7 +40,7 @@ bool PlacaVideo::getAreRayTracing() const
 
 double PlacaVideo::calculeazaPerformanta() const
 {
-    // calculam performanta in functie de VRAM si un bonus pentru Ray Tracing
+    
     double scor = (double)this->memorieVRAM * 1.5;
     
     if (this->areRayTracing == true)
@@ -47,7 +53,7 @@ double PlacaVideo::calculeazaPerformanta() const
 
 std::shared_ptr<Hardware> PlacaVideo::clone() const
 {
-    // facem o copie a placii video curente
+
     return std::make_shared<PlacaVideo>(*this);
 }
 
